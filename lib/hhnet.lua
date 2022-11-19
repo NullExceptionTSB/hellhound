@@ -1,3 +1,7 @@
+-- HELLHOUND PROTOCOL LIBRARY --
+-- Programmed by NullException --
+-- Licensed under the BSD 3-clause license --
+
 local hhnet = {}
 
 function hhnet.getsvrcfg(path)

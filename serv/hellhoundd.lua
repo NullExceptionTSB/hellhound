@@ -1,3 +1,7 @@
+-- HELLHOUND PROTOCOL SERVER --
+-- Programmed by NullException --
+-- Licensed under the BSD 3-clause license --
+
 local component = require("component")
 local event = require("event")
 local serialization = require("serialization");
@@ -31,7 +35,7 @@ local function init()
   if (modem == nil) then
     return false, "no modem";
   end
-
+-- top 10 stupidest error handling moments --
   if not(pcall(init_net)) then
     return false, "failed to load library hhnet";
   end
@@ -43,7 +47,7 @@ local function init()
   if not(pcall(init_db)) then
     return false, "failed to initialize library hhdb"
   end
-
+----------------------------------------------
   local success, msg = hhnet.runsvr(modem, nil);
 
   if not(success) then
@@ -66,8 +70,8 @@ local function init()
 end
 
 local function newpkt(recvAddr, sendAddr, port, dist, data)
-  if not(hhprotocol.validaterq(data)) then
-    modem.send(666, serialization.serialize(hhprotocol.resp_invalid()))
+  if (data == nil) or not(hhprotocol.validaterq(data)) then
+    modem.send(sendAddr, 666, serialization.serialize(hhprotocol.resp_invalid()))
   else
     local rqid = data["rqid"]
     local resp = {}
@@ -94,5 +98,5 @@ while true do
   local _, recv, send, port, dist, data = event.pull("modem_message")
   print("message recv: " .. tostring(data))
   newpkt(recv, send, port, dist, serialization.unserialize(data))
-  os.sleep(1)
+  -- os.sleep(1)
 end

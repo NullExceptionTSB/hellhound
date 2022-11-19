@@ -1,6 +1,9 @@
+-- HELLHOUND PROTOCOL LIBRARY --
+-- Programmed by NullException --
+-- Licensed under the BSD 3-clause license --
+
 local hhdb = {}
 SER = require("serialization");
-
 
 hhdb.fields = { "username", "hashpw", "id", "accesslist" }
 
